@@ -1,0 +1,592 @@
+{
+  "name": "商品検索",
+  "intents": [
+    {
+      "intent": "昼食",
+      "examples": [
+        {
+          "text": "おすすめのランチを教えて"
+        },
+        {
+          "text": "おいしいお店を知りたい"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "人気商品検索",
+      "examples": [
+        {
+          "text": "人気　ランキング　おすすめ　オススメ　買い物"
+        },
+        {
+          "text": "人気商品"
+        },
+        {
+          "text": "売れ筋"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sex",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "male",
+          "synonyms": [
+            "男",
+            "おとこ",
+            "男性"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "female",
+          "synonyms": [
+            "女",
+            "おんな",
+            "女性"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "illegalage",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "70",
+          "synonyms": [
+            "70代"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "60",
+          "synonyms": [
+            "60代"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "ranknumber",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "3",
+          "synonyms": [
+            "３",
+            "3位",
+            "３位"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "4",
+          "synonyms": [
+            "４",
+            "4位",
+            "４位"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "5",
+          "synonyms": [
+            "5",
+            "5位",
+            "５位"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "1",
+          "synonyms": [
+            "１",
+            "１位",
+            "1位"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "2",
+          "synonyms": [
+            "２",
+            "2位",
+            "２位"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "reply",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "ある",
+          "synonyms": [
+            "ある",
+            "ありました",
+            "あった",
+            "はい",
+            "あります",
+            "気になった",
+            "気になる"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "ない",
+          "synonyms": [
+            "なかった",
+            "ありません",
+            "ないです",
+            "なし",
+            "気にならない",
+            "気にならなかった",
+            "ない"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "age",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "50",
+          "synonyms": [
+            "50代",
+            "五十代"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "40",
+          "synonyms": [
+            "40代",
+            "四十代"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "20",
+          "synonyms": [
+            "20代",
+            "二十代"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "10",
+          "synonyms": [
+            "10代",
+            "十代"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "30",
+          "synonyms": [
+            "30代",
+            "三十代"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "language": "ja",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-09-20"
+    }
+  },
+  "skill_id": "26481ec0-60d9-40b9-8dfd-37e4b16ad18d",
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "slot",
+      "parent": "node_10_1566354420195",
+      "variable": "$ranknumber",
+      "dialog_node": "slot_10_1566354639770",
+      "previous_sibling": "node_7_1566361863137"
+    },
+    {
+      "type": "standard",
+      "title": "詳細表示",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "気になった商品の詳細です<p>                                                                                                              \n  <? $appParam.rankingInfo.rankitem[$appParam.rankingInfo.ranknumber] ?>                 \n <p>販売店： \n <? $appParam.rankingInfo.rankitemShop[$appParam.rankingInfo.ranknumber] ?>        \n <p>お値段：                                                       <? $appParam.rankingInfo.rankitemPrice[$appParam.rankingInfo.ranknumber] ?>円<p>URL：                                                                                                                                                    \n <a href=\"<? $appParam.rankingInfo.rankitemUrl[$appParam.rankingInfo.ranknumber] ?>\">                                                            \n <? $appParam.rankingInfo.rankitemShop[$appParam.rankingInfo.ranknumber] ?>のサイトへ</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "またご利用ください"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1566354420195",
+      "context": {
+        "age": null,
+        "sex": null,
+        "reply": null,
+        "ranknumber": null
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$ranknumber != \"null\"",
+      "dialog_node": "node_7_1566361863137"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "何位の商品が見たいですか"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_10_1566354639770",
+      "event_name": "focus",
+      "dialog_node": "handler_2_1566354639796",
+      "previous_sibling": "handler_1_1566354639796"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_10_1566354639770",
+      "context": {
+        "ranknumber": "@ranknumber"
+      },
+      "conditions": "@ranknumber",
+      "event_name": "input",
+      "dialog_node": "handler_1_1566354639796"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1566280395026",
+      "variable": "$age",
+      "dialog_node": "slot_3_1566281497982",
+      "previous_sibling": "response_2_1566291159560"
+    },
+    {
+      "type": "frame",
+      "title": "検索結果",
+      "output": {
+        "text": {
+          "values": [
+            "1位は<? $appParam.rankingInfo.rankitem[0] ?>ですね<p>\n2位は<?$appParam.rankingInfo.rankitem[1]?>ですね<p> \n3位は<?$appParam.rankingInfo.rankitem[2]?>ですね<p>4位は<?$appParam.rankingInfo.rankitem[3]?>ですね<p>\n5位は<?$appParam.rankingInfo.rankitem[4]?>ですね<p>"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_8_1566280395026",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1566358959389"
+      },
+      "conditions": "$appParam &&   $age != \"null\" && $sex != \"null\"",
+      "dialog_node": "node_8_1566281588500",
+      "previous_sibling": "slot_10_1566366147099"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1566280395026",
+      "variable": "$sex",
+      "dialog_node": "slot_10_1566366147099",
+      "previous_sibling": "slot_3_1566281497982"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_2_1566291159560",
+      "output": {
+        "text": {
+          "values": [
+            "null"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_8_1566280395026",
+      "conditions": "$appParam",
+      "dialog_node": "response_2_1566291159560",
+      "previous_sibling": "response_1_1566291087738"
+    },
+    {
+      "type": "response_condition",
+      "title": "response_1_1566291087738",
+      "parent": "node_8_1566280395026",
+      "conditions": "anything_else",
+      "dialog_node": "response_1_1566291087738"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1566348833041",
+      "event_name": "focus",
+      "dialog_node": "handler_8_1566348833066",
+      "previous_sibling": "handler_6_1566348833066"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_8_1566348833041",
+      "event_name": "input",
+      "dialog_node": "handler_6_1566348833066"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "気になる商品はありましたか"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_5_1566358990397",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1566358990420",
+      "previous_sibling": "handler_6_1566358990420"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_5_1566358990397",
+      "context": {
+        "reply": "@reply"
+      },
+      "conditions": "@reply",
+      "event_name": "input",
+      "dialog_node": "handler_6_1566358990420"
+    },
+    {
+      "type": "slot",
+      "parent": "ようこそ",
+      "dialog_node": "slot_8_1566348833041"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "男性か女性、どちらのランキングを見ますか"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_10_1566366147099",
+      "event_name": "focus",
+      "dialog_node": "handler_5_1566366147100",
+      "previous_sibling": "handler_9_1566366147100"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_10_1566366147099",
+      "context": {
+        "sex": "@sex"
+      },
+      "conditions": "@sex",
+      "event_name": "input",
+      "dialog_node": "handler_9_1566366147100"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1566286687543",
+      "event_name": "focus",
+      "dialog_node": "handler_7_1566286687545",
+      "previous_sibling": "handler_9_1566286687545"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_8_1566286687543",
+      "context": {
+        "reply": "@reply"
+      },
+      "conditions": "@reply",
+      "event_name": "input",
+      "dialog_node": "handler_9_1566286687545"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "どの年代のランキングを調べますか(50代以下に対応)"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_3_1566281497982",
+      "event_name": "focus",
+      "dialog_node": "handler_7_1566281497984",
+      "previous_sibling": "handler_6_1566281497984"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_3_1566281497982",
+      "context": {
+        "age": "@age"
+      },
+      "conditions": "@age",
+      "event_name": "input",
+      "dialog_node": "handler_6_1566281497984"
+    },
+    {
+      "type": "standard",
+      "title": "else",
+      "output": {
+        "text": {
+          "values": [
+            "ではまたの機会に"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_8_1566358959389",
+      "context": {
+        "age": null,
+        "sex": null,
+        "reply": null,
+        "ranknumber": null
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$reply != \"ある\"",
+      "dialog_node": "node_2_1566354840014",
+      "previous_sibling": "slot_5_1566358990397"
+    },
+    {
+      "type": "frame",
+      "title": "詳細表示要求",
+      "output": {
+        "text": {
+          "values": [
+            "                                                                                                             "
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_8_1566358959389",
+      "conditions": "$reply:ある",
+      "dialog_node": "node_10_1566354420195",
+      "previous_sibling": "node_2_1566354840014"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1566358959389",
+      "variable": "$reply",
+      "dialog_node": "slot_5_1566358990397"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1566281588500",
+      "variable": "$reply",
+      "dialog_node": "slot_8_1566286687543",
+      "previous_sibling": "node_8_1566358959389"
+    },
+    {
+      "type": "frame",
+      "title": "詳細確認",
+      "parent": "node_8_1566281588500",
+      "dialog_node": "node_8_1566358959389"
+    },
+    {
+      "type": "standard",
+      "title": "その他",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "解釈できませんでした。申し訳ありませんが違う表現を試していただけますか。"
+              },
+              {
+                "text": "恐れ入りますが表現を変えていただけますか。解釈できませんでした。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "anything_else",
+      "dialog_node": "その他",
+      "previous_sibling": "node_8_1566280395026"
+    },
+    {
+      "type": "frame",
+      "title": "人気商品検索",
+      "metadata": {
+        "callout": {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "": ""
+          },
+          "result_variable": "webhook_result_1"
+        },
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#人気商品検索",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_8_1566280395026",
+      "previous_sibling": "ようこそ"
+    },
+    {
+      "type": "frame",
+      "title": "ようこそ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "いらっしゃいませ。ご用件を入力してください。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "welcome",
+      "dialog_node": "ようこそ"
+    }
+  ],
+  "workspace_id": "26481ec0-60d9-40b9-8dfd-37e4b16ad18d",
+  "counterexamples": [],
+  "system_settings": {},
+  "learning_opt_out": false,
+  "status": "Available"
+}
